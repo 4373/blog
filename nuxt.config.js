@@ -5,6 +5,7 @@ module.exports = {
   css: [
     '~css/common.css',
     '~css/flex.css',
+    '~css/article.css'
   ],
   head: {
     title: 'It`s me',
@@ -14,7 +15,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'me`s blog' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   /*

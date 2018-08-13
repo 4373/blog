@@ -1,10 +1,11 @@
 <template>
-  <div>
-    技能
-  </div>
+  <nuxt-child></nuxt-child>
 </template>
 <script>
   export default {
-    
+    layout: 'home',
+    mounted() {
+      console.log(this.$route)
+    }
   }
 </script>

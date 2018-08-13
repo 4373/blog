@@ -43,11 +43,13 @@
   .head{
     margin-bottom: 16px
   }
+  .position{
+    vertical-align: middle
+  }
   .position-item{
-    float: left;
     padding: 0 16px;
     border-left: 1px solid #ddd;
-    color: #888
+    color: #888;
   }
   .position-item:first-of-type{
     border-left: none;
@@ -62,7 +64,7 @@
     </div>
     <div class="layout-right">
       <div class="head clearfix">
-          <div class="position clearfix left">
+          <div class="left">
               <span class="position-item">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-home"></use>
@@ -88,7 +90,9 @@
               </svg>
           </div>
       </div>
-      <nuxt></nuxt>
+      <div class="px-5">
+          <nuxt></nuxt>
+      </div>
     </div>
   </div>
 </template>
@@ -96,7 +100,7 @@
   export default {
     head: {
       link: [
-        { rel: 'stylesheet', href: '//at.alicdn.com/t/font_789693_qhjr2o02p8.css' }
+        { rel: 'stylesheet', href: '//at.alicdn.com/t/font_789693_qhjr2o02p8.css' },
       ],
       script: [
         { src: '//at.alicdn.com/t/font_789693_m7bduh5vm.js' }
