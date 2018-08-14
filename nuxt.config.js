@@ -5,7 +5,7 @@ module.exports = {
   css: [
     '~css/common.css',
     '~css/flex.css',
-    '~css/article.css'
+    '~css/article.css',
   ],
   head: {
     title: 'It`s me',
@@ -38,7 +38,7 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
   }
 }
 

@@ -39,6 +39,7 @@
   .layout-right {
     padding: 8px;
     flex: 1 1 auto;
+    overflow: auto
   }
   .head{
     margin-bottom: 16px
@@ -55,12 +56,14 @@
     border-left: none;
     padding-left:0;
   }
+  .home-box{
+    
+  }
 </style>
 <template>
   <div class="index-layout">
     <div class="layout-left">
       <img src="~static/logo.png" alt="" height=80>
-      
     </div>
     <div class="layout-right">
       <div class="head clearfix">
@@ -90,7 +93,7 @@
               </svg>
           </div>
       </div>
-      <div class="px-5">
+      <div class="px-5 home-box">
           <nuxt></nuxt>
       </div>
     </div>
@@ -101,16 +104,23 @@
     head: {
       link: [
         { rel: 'stylesheet', href: '//at.alicdn.com/t/font_789693_qhjr2o02p8.css' },
+        { rel: 'stylesheet', href: '/prismjs/prism.css' },
       ],
       script: [
-        { src: '//at.alicdn.com/t/font_789693_m7bduh5vm.js' }
+        { src: '//at.alicdn.com/t/font_789693_m7bduh5vm.js' },
+        // { src: '/prismjs/prism.js'}
       ]
     },
     data() {
       return {}
     },
     mounted() {
-      console.log(this.$route)
+      setTimeout(() => {
+        const script = document.createElement('script')
+        script.src = '/prismjs/prism.js'
+
+        document.body.appendChild(script)
+      }, 300)
     }
   }
 </script>
