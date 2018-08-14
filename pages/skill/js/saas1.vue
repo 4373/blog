@@ -32,21 +32,12 @@
       <li>mixins目录，一些相似页面的混入。</li>
     </ul>
     <h4>页面结构</h4>
-    <p>页面结构主要是router.js文件了，该文件导出了两个对象一个router， 一个route，</p>
+    <p>页面结构主要是router.js文件了，该文件导出了两个对象一个router， 一个routes。</p>
     <div>
       <pre>
         <code class="language-javascript">
           // router.js
 
-          // router
-          export const router = new Router({
-            routes: [
-              { path: '/', component: Home, children: route },
-              { path: '/login', component: Login },
-              ...others,
-              { path: '/404', component: Page404 },
-            ]
-          })
           // routes
           export const routes = [
             { 
@@ -71,11 +62,23 @@
             },
             ...otherMenu
           ]
+
+          // router
+          export const router = new Router({
+            routes: [
+              { path: '/', component: Home, children: route },
+              { path: '/login', component: Login },
+              ...others,
+              { path: '/404', component: Page404 },
+            ]
+          })
+          
         </code>
       </pre>
     </div>
-    <p>导出的router不用多说， 是vue实例化所需要的路由对象，而routes的话， 在本项目中有两个用途。</p>
-    <div class="view hidden">
+    <p>导出的router不用多说， 是vue实例化所需要的路由对象，而routes的话， 在本项目中主要用来遍历菜单的侧边栏，结合后端传过来的权限列表，可以过滤出该用户的权限菜单，这个会在权限篇具体讨论。</p>
+    <p>根据router.js内容生成的页面结构如下：</p>
+    <div class="view ">
       <p class="bg-primary pa-1">主页</p>
       <p class="bg-danger pa-1 ml-3">角色管理</p>
       <p class="bg-info pa-1 ml-5">角色列表</p>
@@ -87,7 +90,9 @@
       <p class="bg-info pa-1 ml-5">详情</p>
       <p class="bg-primary pa-1">登录页</p>
       <p class="bg-primary pa-1">404</p>
+      <p class="bg-primary pa-1">500</p>
     </div>
+    <p>蓝色是顶层页面， 主要包括登陆页， 404， 500 等不需要登陆的页面，以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页。</p>
   </div>
 </template>
 <script>
