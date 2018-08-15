@@ -108,7 +108,7 @@
     <p>如果菜单template是这样子的：</p>
     <pre class="language-markup">
       <code class="language-markup" v-text='html'>
-        
+
       </code>
     </pre>
     <p>那么最终渲染出来就是这个样子了：</p>
@@ -123,7 +123,7 @@
         </div>
       </div>
     </div>
-    <p>可以看到字体图标出来了，并且角色列表隐藏了。</p>
+    <p>可以看到字体图标渲染出来，并且角色列表隐藏了。</p>
     <p>导出的routes结合后端传过来的权限列表，可以过滤出该用户的权限菜单，这个会在权限篇具体讨论。</p>
     <p>根据router.js内容生成的页面结构如下：</p>
     <div class="view ">
@@ -141,8 +141,81 @@
       <p class="bg-primary pa-1">404</p>
       <p class="bg-primary pa-1">500</p>
     </div>
-    <p>蓝色是顶层页面， 主要包括登陆页， 404， 500 等不需要登陆的页面，也可以做一些活动页面，移动web页面。以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页里面。</p>
+    <p>蓝色是顶层页面， 主要包括登陆页，404，500 等不需要登陆的页面，也可以做一些活动页面，移动web页面。以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页里面。</p>
+    <p>如此一来页面就显得非常可控了</p>
+    <h4>组件处理</h4>
+    <p>本项目大部分组件都可以在element-ui里面找到，而有一些特定的功能需要自己写一些组件，对此。我们在components 文件夹中创建一个index.js，用来引入需要自己写的组件和element的组件。具体如下：</p>
+    <pre>
+      <code class="language-javascript">
+          // /components/index.js
+          import Vue from 'vue'
+          import './element'
+          import '../less/element-variables.scss'
+          
+          import ikv from './kv.vue'
+          Vue.component('ikv', ikv)
 
+          import backtop from './backtop.vue'
+          Vue.component('ibacktop', backtop)
+
+          import loading from './loading.vue'
+          Vue.component('iloading', loading)
+
+          import table from './fixtable.vue'
+          Vue.component('itable',  table)
+          ....
+          // main.js
+          import '/components/index.js'
+      </code>
+    </pre>
+    <p>对于element，有很多组件在本项目中是用不到的，于是采用按需加载。同时，我们可能有一种需求，就是对组件的默认行为或样式有适应本项目的需求。而element提供的全局配置比较少，但我们可以手动的为需要的组件改动一些配置，创建一个elemengt.js：</p>
+    <pre>
+      <code class="language-javascript">
+          import Vue from 'vue'
+          import {
+            Button,
+            InputNumber,
+            Message,
+            // Notification
+            ...
+          } from 'element-ui'
+
+
+          // 修改默认的设置
+          Button.props.plain.default = true
+          Button.props.type.default = 'primary' // 偷个懒， 因为每次写 &lt;el-button type='primary'&gt;&lt;/el-button&gt; 加一个type很麻烦
+          InputNumber.props.controlsPosition.default = 'right'
+          // 改写方法，谨慎尝试，建议看着源码来
+          InputNumber.methods = Object.assign({},InputNumber.methods, {
+            handleInputChange(value) {
+              const newVal = value === '' ? 0 : Number(value);
+              if (!isNaN(newVal) || value === 0) {
+                this.setCurrentValue(newVal);
+              }
+            }
+          })
+          Vue.use(Button)
+          Vue.use(InputNumber)
+          Vue.use(Message)
+          // Vue.use(Notification)
+          ...
+
+          //  this.$message({type: 'info', message: '提示'}) 的调用方式改为 this.$mes.info('提示')
+          const mes = ['info', 'success', 'error', 'warning']
+          Vue.prototype.$mes = {}
+          mes.forEach(item => {
+            Vue.prototype.$mes[item] = (mes) => {
+              Message({
+                type: item,
+                message: mes
+              })
+            }
+          })
+      </code>
+    </pre>
+    <p>考虑到在每个页面都要引入常用的组件，所以把组件注册在全局。</p>
+    <h4>接口配置</h4>
+    
   </div>
 </template>
 <script>
