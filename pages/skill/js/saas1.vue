@@ -5,7 +5,9 @@
   }
 
   .view p {
-    margin: 2px 0;
+    margin: 0px 0;
+    border-bottom: 1px solid #eee;
+    border-radius: 8px
   }
   .box{
     width: 200px;
@@ -68,7 +70,7 @@
               path: '/role', 
               name: '角色管理', 
               component: { render(h) {return h('router-view')}}, 
-              icon: 'icon-life',
+              icon: 'life',
               children: [
                 {path: '/role/list', component: RoleList, name: '角色列表', hidden: true},
                 {path: '/role/deal', component: RoleDeal, name: '角色处理'},
@@ -79,7 +81,7 @@
               path: '/account', 
               name: '帐号管理', 
               component: { render(h) {return h('router-view')}}, 
-              icon: 'icon-user',
+              icon: 'user',
               children: [
                 {path: '/account/list', component: AccountList, name: '账号列表'},
                 {path: '/account/deal', component: AccountDeal, name: '账号处理'},
@@ -113,9 +115,7 @@
     <div class="box">
       <div class="parent" v-for = '(item, key) in routes' :key='key'>
         <div class="parent-name">
-          <svg class="icon" aria-hidden="true">
-              <use :xlink:href="'#' + item.icon"></use>
-          </svg>
+          <Icon :type='item.icon'></Icon>
           <span>{{item.name}}</span>
           <div class="children">
             <p class="child" v-for = '(i, k) in item.children' :key='k' v-if='!i.hidden' :title='i.path'>{{i.name}}</p>
@@ -123,6 +123,7 @@
         </div>
       </div>
     </div>
+    <p>可以看到字体图标出来了，并且角色列表隐藏了。</p>
     <p>导出的routes结合后端传过来的权限列表，可以过滤出该用户的权限菜单，这个会在权限篇具体讨论。</p>
     <p>根据router.js内容生成的页面结构如下：</p>
     <div class="view ">
@@ -136,10 +137,11 @@
       <p class="bg-info pa-1 ml-5">新增或编辑</p>
       <p class="bg-info pa-1 ml-5">详情</p>
       <p class="bg-primary pa-1">登录页</p>
+      <p class="bg-primary pa-1">活动页或html5页面</p>
       <p class="bg-primary pa-1">404</p>
       <p class="bg-primary pa-1">500</p>
     </div>
-    <p>蓝色是顶层页面， 主要包括登陆页， 404， 500 等不需要登陆的页面，以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页。</p>
+    <p>蓝色是顶层页面， 主要包括登陆页， 404， 500 等不需要登陆的页面，也可以做一些活动页面，移动web页面。以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页里面。</p>
 
   </div>
 </template>
@@ -153,7 +155,7 @@
               path: '/role', 
               name: '角色管理', 
               component: { render(h) {return h('router-view')}}, 
-              icon: 'icon-life',
+              icon: 'life',
               children: [
                 {path: '/role/list', component: 'RoleList', name: '角色列表', hidden: true},
                 {path: '/role/deal', component: 'RoleDeal', name: '角色处理'},
@@ -164,7 +166,7 @@
               path: '/account', 
               name: '帐号管理', 
               component: { render(h) {return h('router-view')}}, 
-              icon: 'icon-user',
+              icon: 'user',
               children: [
                 {path: '/account/list', component: 'AccountList', name: '账号列表'},
                 {path: '/account/deal', component: 'AccountDeal', name: '账号处理'},

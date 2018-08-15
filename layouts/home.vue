@@ -12,14 +12,6 @@
     box-sizing: border-box;
   }
 
-  .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
-
   .index-layout {
     display: flex;
     margin: 1vh;
@@ -69,21 +61,15 @@
       <div class="head clearfix">
           <div class="left">
               <span class="position-item">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-home"></use>
-                </svg>
+                  <Icon type='home'></Icon>
                 <span class='ml-1'>首页</span>
               </span>
               <span class="position-item">
-                  <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-js"></use>
-                  </svg>
+                  <Icon type='js'></Icon>
                 <span class='ml-1'>JS</span>
               </span>
               <span class="position-item">
-                  <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-article"></use>
-                  </svg>
+                  <Icon type='article'></Icon>
                 <span class='ml-1'>this 的一切</span>
               </span>
           </div>
@@ -100,6 +86,7 @@
   </div>
 </template>
 <script>
+  import Icon from '../components/Icon.vue'
   export default {
     head: {
       link: [
@@ -110,6 +97,9 @@
         { src: '//at.alicdn.com/t/font_789693_m7bduh5vm.js' },
         // { src: '/prismjs/prism.js'}
       ]
+    },
+    components: {
+      Icon
     },
     data() {
       return {}

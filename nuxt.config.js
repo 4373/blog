@@ -39,6 +39,9 @@ module.exports = {
         })
       }
     },
+    plugins: [
+      '~plugins/components.js'
+    ]
   }
 }
 
