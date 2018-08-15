@@ -215,7 +215,17 @@
     </pre>
     <p>考虑到在每个页面都要引入常用的组件，所以把组件注册在全局。</p>
     <h4>接口配置</h4>
-    
+    <p>接口配置主要是对接口进行统一的管理和全局的拦截。由于后端是属于重构项目，接口的变动非常频繁，如果将每个接口的请求地址写在各自的页面的话，后续修改接口将会是一场灾难。于是统一的接口管理就应运而生。接口的写法大体是这样：</p>
+    <pre>
+      <code class="language-javascript">
+        export const login = [
+          { name: 'getToken', url: '/api/auth/weblogintoken', method: 'POST' },
+          { name: 'login', url: '/api/auth/in', method: 'POST' },
+          { name: 'logout', url: '/api/auth/out', method: 'GET' }
+        ]
+      </code>
+    </pre>
+    <p></p>
   </div>
 </template>
 <script>
