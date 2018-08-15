@@ -38,10 +38,10 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    },
-    plugins: [
-      '~plugins/components.js'
-    ]
-  }
+    }
+  },
+  plugins: [
+    '~plugins/components.js'
+  ]
 }
 

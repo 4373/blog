@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import Icon from '../components/Icon.vue'
+import Components from '../components/index'
 
-Vue.component('Icon', Icon)
+Vue.use(Components)

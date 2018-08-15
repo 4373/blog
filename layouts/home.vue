@@ -86,7 +86,6 @@
   </div>
 </template>
 <script>
-  import Icon from '../components/Icon.vue'
   export default {
     head: {
       link: [
@@ -97,9 +96,6 @@
         { src: '//at.alicdn.com/t/font_789693_m7bduh5vm.js' },
         // { src: '/prismjs/prism.js'}
       ]
-    },
-    components: {
-      Icon
     },
     data() {
       return {}
