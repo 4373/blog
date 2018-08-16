@@ -40,11 +40,11 @@
     <!-- <h2 class="title">SaaS项目 结后总结1</h2> -->
     <p class="text-center">2018-08-13 by me</p>
 
-    <h4>概况</h4>
+    <h3>概况</h3>
     <p>从去年九月开始到今年7月，做了个SaaS项目。这个项目基本是独立完成，包括环境的搭建，权限的设计，单据的打印等。总之写完之后还是收获了很多，如今赶上开始写博客，正好记录下来。</p>
     <p>这个项目是用vue-cli脚手架搭建的单页面应用。 其中包括一些vue的周边vue-router， vuex。ui使用的是element-ui，而数据请求使用的是axios， 还有一些特定功能使用到了e-charts，xlsx，wangEditor，cropperjs等。</p>
 
-    <h4>目录结构</h4>
+    <h3>目录结构</h3>
     <p>此项目的目录结构如下:</p>
     <img src="~assets/saas/folder.jpg" alt="">
     <p>相比与vue-cli默认生成的， 这里多了api、common、directive、less、mixins文件夹，对于文件来说添加了一个echart-theme.js和iview-theme.js， 分别是e-charts.js和iview
@@ -57,7 +57,7 @@
       <li>less目录，样式文件。</li>
       <li>mixins目录，一些相似页面的混入。</li>
     </ul>
-    <h4>页面结构</h4>
+    <h3>页面结构</h3>
     <p>页面结构主要是router.js文件了，该文件导出了两个对象一个router， 一个routes。</p>
     <div>
       <pre>
@@ -143,7 +143,7 @@
     </div>
     <p>蓝色是顶层页面， 主要包括登陆页，404，500 等不需要登陆的页面，也可以做一些活动页面，移动web页面。以及项目的主页home，项目的主要功能都写在这里面。红色就是菜单项，里面会包含该菜单项的功能页面，也就是灰色部分。灰色部分不会出现在菜单栏，同通过点击红色项redirect到该项下面的列表页，该菜单项的其他部分的入口全在列表页里面。</p>
     <p>如此一来页面就显得非常可控了</p>
-    <h4>组件处理</h4>
+    <h3>组件处理</h3>
     <p>本项目大部分组件都可以在element-ui里面找到，而有一些特定的功能需要自己写一些组件，对此。我们在components 文件夹中创建一个index.js，用来引入需要自己写的组件和element的组件。具体如下：</p>
     <pre>
       <code class="language-javascript">
@@ -214,10 +214,11 @@
       </code>
     </pre>
     <p>考虑到在每个页面都要引入常用的组件，所以把组件注册在全局。</p>
-    <h4>接口配置</h4>
+    <h3>接口配置</h3>
     <p>接口配置主要是对接口进行统一的管理和全局的拦截。由于后端是属于重构项目，接口的变动非常频繁，如果将每个接口的请求地址写在各自的页面的话，后续修改接口将会是一场灾难。于是统一的接口管理就应运而生。接口的写法大体是这样：</p>
     <pre>
       <code class="language-javascript">
+        // login.js
         export const login = [
           { name: 'getToken', url: '/api/auth/weblogintoken', method: 'POST' },
           { name: 'login', url: '/api/auth/in', method: 'POST' },
@@ -225,7 +226,18 @@
         ]
       </code>
     </pre>
-    <p></p>
+    <p>调用方式应自己的习惯来处理，比如该项目我使用 api.getToke(params) 的方式，但每次每个page的引用觉得有些繁琐和无必要，所以现在采用的方式是挂在到this上。直接通过 this.$post('getToken', params) 的方式调用。</p>
+    <p>接下来要做的是结合以上login.js的写法和axios的调用方式来做数据变换，具体就不贴代码了。需要注意的是调用并非类似this.$post.login.getToken，所以这会导致某个name重名，前一个会被覆盖，因此需要循环判断下name的唯一性。</p>
+    <p>接口的拦截是一个全局的范围，从中可以做很多你想做的事，比如：</p>
+      <ul>
+        <li>接口的调用限制——同一个接口如果几秒内调用很多次，就可以让他休眠几秒钟后才能调用</li>
+        <li>全局的loadingBar, 或者显示一个<span class="itag">正在请求/api/auth/weblogintoken...</span></li>
+        <li>如果后端返回的权限方式是接口列表，你还可以在请求之前在这里进行拦截</li>
+      </ul>
+    <p>当然最重要的是根据后端返回的数据来进行各类操作，网上有很多好的文章介绍怎么封装，这里就不介绍了。</p>
+    <h3>列表请求</h3>
+    <p>系统类网站基本是离不开列表查询，根据不同的参数获取不同的结果。点击分页中的页数和每页多少条进行查询、任何一个参数改变进行查询、按回车键进行查询、清空按钮、刷新页面后搜索条件要保持原样等等这些，基本的操作都是一样的，如果每个页面都写上相同的逻辑的话， 会显得非常繁琐和冗余。</p>
+    <p>这边写了一个mixins来解决以上的问题。</p>
   </div>
 </template>
 <script>

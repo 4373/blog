@@ -106,7 +106,7 @@
         script.src = '/prismjs/prism.js'
 
         document.body.appendChild(script)
-      }, 300)
+      }, 0)
     }
   }
 </script>
