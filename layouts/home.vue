@@ -49,7 +49,17 @@
     padding-left:0;
   }
   .home-box{
-    
+    padding: 0 48px
+  }
+  @media screen and (max-width: 414px) {
+    .layout-left {
+      flex: 0 0 0px!important;
+      border-right: 0px solid #eee;
+      overflow: hidden;
+    }
+    .home-box{
+      padding: 0px
+    }
   }
 </style>
 <template>
@@ -79,7 +89,7 @@
               </svg>
           </div>
       </div>
-      <div class="px-5 home-box">
+      <div class="home-box">
           <nuxt></nuxt>
       </div>
     </div>
